@@ -15,30 +15,30 @@ int _printf(const char *format, ...)
 	unsigned int num;
 	va_list printf;
 	va_start(printf, format);
-	
-	for (;*format != '\0';)
+
+	for (; *format != '\0'; )
 	{
-        if (*format == '%')
-        {
+	if (*format == '%')
+	{
 	format++;
 
 	switch (*format)
 	{
-	
+
 	case 'c':
 	count = count + _putchar(va_arg(printf, int));
 	break;
-	
+
 	case 's':
 	{
 	count += _puts(va_arg(printf, char*));
 	}
 	break;
-                
+
 	case '%':
 	count += _putchar('%');
 	break;
-                
+
 	case 'd':
 	case 'i':
 	{
@@ -46,7 +46,7 @@ int _printf(const char *format, ...)
 	char str[12] = {0};
 	int i = 10, j = 0;
 
-	if (num == 0) 
+	if (num == 0)
 	{
 	str[j++] = '0';
 	}
@@ -55,39 +55,37 @@ int _printf(const char *format, ...)
 	str[j++] = '-';
 	num = -1 * num;
 	}
-	while (num != 0) 
+	while (num != 0)
 	{
 	str[i--] = (num % 10) + '0';
 	num = num / 10;
-        }
-	count = count + _puts(&str[i+1]);
 	}
-	break;       
+	count = count + _puts(&str[i + 1]);
+	}
+	break;
 	case 'b':
 	{
 	num = va_arg(printf, unsigned int);
 	binary[33] = 0;
 	i = 31;
-        do
-	{
+	do {
 	binary[i--] = (num % 2) + '0';
 	num = num / 2;
-	} 
-	while (num != 0);
-	count = count + _puts(&binary[i+1]);
+	} while (num != 0);
+	count = count + _puts(&binary[i + 1]);
 	}
-	break;	
+	break;
 	default:
 	count = count + write(1, format - 1, 2);
-	break;	
+	break;
 	}
 	}
-        else
+	else
 	{
 	count = count + _putchar(*format);
 	}
 	format++;
 	}
 	va_end(printf);
-    	return (count);
-}    
+	return (count);
+}
